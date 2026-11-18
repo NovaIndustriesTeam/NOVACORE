@@ -1,0 +1,94 @@
+/* NovaCore 3.10.0 — mode performance et pause globale.
+   Chargé après milenium.css. Ne change pas la logique métier :
+   - body.perf-lite : supprime les couches floutées, la 3D de fond et les animations décoratives infinies.
+   - html.nf-hidden : met toutes les animations en pause quand la fenêtre est masquée.
+   Le mode est activable dans Compte & sécurité ou les options rapides. */
+
+/* --------------------------------------------------------------------------
+   Correctif 3.10.0 — boucles décoratives infinies.
+   `milenium.css` contient une trentaine d'animations `infinite` (ambientDrift,
+   supernovaPulse, novaosPlanetFloat, reSpotlight, nfSpinZ, enSpin…). Sur un
+   écran 120/165 Hz elles saturent le compositeur : ~100 % CPU entre le renderer
+   et le GPU, d'où les micro-gels. Mesures reproductibles sur cette machine :
+   tout actif 2,19 s/4 s (renderer) + 2,27 s/4 s (GPU) ; une seule itération
+   0,69 s + 0,42 s ; aucune animation 0,33 s + 0,38 s.
+   Les boucles décoratives jouent donc une seule fois puis s'arrêtent. Seuls les
+   indicateurs de chargement (`spin`, `loading-dot`) gardent leur boucle, car
+   elle est fonctionnelle. La 3D, les dégradés et le flou restent inchangés.
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { animation-iteration-count: 1 !important; }
+.loading-dot, .spin, [class*="spin"] { animation-iteration-count: infinite !important; }
+
+/* Le volet d'introduction est masqué par `visibility:hidden`, ce qui NE stoppe
+   PAS les animations CSS : sans cette règle elles continuent en arrière-plan. */
+.nova-intro.is-hidden,
+.nova-intro.is-hidden *,
+.nova-intro.is-hidden *::before,
+.nova-intro.is-hidden *::after { animation: none !important; }
+
+/* Pause réelle de toutes les animations quand l'application est masquée. */
+html.nf-hidden *,
+html.nf-hidden *::before,
+html.nf-hidden *::after { animation-play-state: paused !important; }
+
+/* Décor de fond inutile en mode performance. */
+body.perf-lite .ambient,
+body.perf-lite .nova-nebula,
+body.perf-lite #novaStars,
+body.perf-lite #nova3d,
+body.perf-lite #nsNebula,
+body.perf-lite .intro-space,
+body.perf-lite .nv-flash { display: none !important; }
+
+/* Les filtres de flou sont le poste GPU le plus coûteux après la 3D. */
+body.perf-lite *,
+body.perf-lite *::before,
+body.perf-lite *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Panneaux opaques lisibles, sans reflets ni ombres multiples. */
+body.perf-lite .card,
+body.perf-lite .glass-panel,
+body.perf-lite .sidebar,
+body.perf-lite .topbar,
+body.perf-lite .workspace,
+body.perf-lite .sync-pill,
+body.perf-lite .icon-btn,
+body.perf-lite .modal,
+body.perf-lite .mini-card,
+body.perf-lite .search-result,
+body.perf-lite .roadmap-item,
+body.perf-lite .featurelab-card,
+body.perf-lite .access-gate,
+body.perf-lite .gate-card,
+body.perf-lite .command-panel {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Animations décoratives : une seule passe, jamais en boucle. */
+body.perf-lite *:not(.loading-dot):not(.spin):not([class*="spin"]) {
+  animation-iteration-count: 1 !important;
+}
+
+body.perf-lite .nova-core-star,
+body.perf-lite .nova-orbit,
+body.perf-lite .retroedge-hero-glow,
+body.perf-lite .fl-hero-aura,
+body.perf-lite .fl-ring,
+body.perf-lite .re-floor,
+body.perf-lite .re-body,
+body.perf-lite .en-cube {
+  animation: none !important;
+}
+
+/* Préférence système de transparence réduite : même contrat visuel. */
+@media (prefers-reduced-transparency: reduce) {
+  .card, .glass-panel, .sidebar, .topbar, .workspace, .sync-pill, .icon-btn,
+  .modal, .mini-card, .search-result, .roadmap-item, .featurelab-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}

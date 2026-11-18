@@ -1,0 +1,10 @@
+{
+  "name": "NovaCore — NovaOS Control Center",
+  "short_name": "NovaCore",
+  "description": "Nova Industries — espace de travail NovaCore : NovaOS, projets, création et RetroEdge.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04050d",
+  "theme_color": "#04050d",
+  "icons": []
+}

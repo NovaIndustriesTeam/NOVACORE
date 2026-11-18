@@ -1,0 +1,19 @@
+{
+  "name": "nova-engine-workbench",
+  "version": "1.9.1",
+  "private": true,
+  "description": "Nova Engine Workbench 1.9 with explicit NovaID session handling, autosave with rolling backups, starter scene, Scene Lab, multi-light shadows, PNG/JPEG textures, HDR bloom/ACES, gameplay Play mode, WebGL2 viewport, C++ software and Direct3D 12 GPU renderers, native Win32/D3D12 runtime window, swapchain capture, scene library, build, tests and runtime",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check public/session.js && node --check public/viewport-math.js && node --check public/viewport-3d.js && node --check public/app.js",
+    "test:viewport": "node test-viewport.mjs",
+    "test:session": "node test-session.mjs",
+    "test:scene-api": "node test-scenes.mjs",
+    "test:render": "node test-render.mjs",
+    "test:gpu": "node test-gpu.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

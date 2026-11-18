@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /api/
+Disallow: /nova-engine/api/
+Allow: /
+
+# NovaCore est une application personnelle : l'interface est indexable,
+# mais les données et API privées ne le sont pas.

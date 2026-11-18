@@ -1,0 +1,111 @@
+{
+  "name": "novacore-total",
+  "version": "3.10.0",
+  "private": true,
+  "author": "Nova Industries",
+  "description": "NovaCore 3.10.0 - encrypted local backups (AES-256-GCM, age retention, tested restore) on top of the 3.9.0 HTTP security boundary (strict origin control, security.txt, incident response), SQLite transactional storage, NovaOS, Nova Feature Lab 100 %, Nova Engine 3D software and Direct3D 12 GPU renderers with multi-light shadows, PNG/JPEG textures, HDR bloom/ACES, gameplay runtime and native Win32 window, and NovaSeries, Port 6300",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "desktop": "electron .",
+    "desktop:pack": "electron-builder --win",
+    "dist": "electron-builder --win",
+    "icon": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/build/make-icon.ps1",
+    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "check": "node --check server/index.js && node --check server/ai-actions.js && node --check server/security.js && node --check server/auth.js && node --check server/db.js && node --check server/backup-crypto.js && node --check public/app.js && node --check public/i18n.js && node --check public/nova-commands.js && node --check public/nova-tour.js && node --check public/feature-lab-model.js && node --check public/series-model.js && node --check public/motion.js && node --check public/boot.js && node --check public/three.min.js && node --check public/loading-genesis.js && node --check public/nova-space.js && node --check public/studio-3d.js && node --check public/nova-scene.js && node --check public/design-shell.js && node --check public/sw.js && node --check desktop/main.cjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "nodemailer": "10.6.0"
+  },
+  "devDependencies": {
+    "electron": "45.3.4",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.novacore.desktop",
+    "productName": "NovaCore",
+    "copyright": "Copyright © 2026 Nova Industries",
+    "asar": false,
+    "npmRebuild": false,
+    "compression": "normal",
+    "directories": {
+      "buildResources": "desktop/build",
+      "output": "dist"
+    },
+    "files": [
+      "desktop/**/*",
+      "public/**/*",
+      "server/**/*",
+      "package.json",
+      "SECURITY.md",
+      "nova-engine-workbench/server.mjs",
+      "nova-engine-workbench/package.json",
+      "nova-engine-workbench/public/**/*",
+      "nova-engine-workbench/assets/**/*",
+      "nova-engine-workbench/engine/build/Release/NovaEngine.exe",
+      "nova-engine-workbench/engine/build/Release/*.dll",
+      "!**/*.map"
+    ],
+    "extraResources": [
+      {
+        "from": "runtime",
+        "to": "runtime",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico",
+      "requestedExecutionLevel": "asInvoker",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NovaCore",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "uninstallDisplayName": "NovaCore ${version}",
+      "artifactName": "NovaCore-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "NovaCore-Portable-${version}-${arch}.${ext}"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

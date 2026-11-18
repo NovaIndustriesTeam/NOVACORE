@@ -1,0 +1,124 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#04050d"><meta name="color-scheme" content="dark light"><meta name="description" content="NovaCore 3.10.0 — NovaOS, outils de création et RetroEdge."><link rel="manifest" href="/manifest.webmanifest"><title>NovaCore · NovaOS Control Center</title>
+<link rel="stylesheet" href="/milenium.css">
+<link rel="stylesheet" href="/nova-perf.css">
+<link rel="stylesheet" href="/nova-ui.css">
+</head>
+<body>
+<a class="skip-link" href="#view">Aller au contenu</a>
+<div class="ambient"></div>
+<canvas id="novaStars" aria-hidden="true"></canvas>
+<div class="nova-nebula" aria-hidden="true"><div class="nova-orbit orbit-a"></div><div class="nova-orbit orbit-b"></div><div class="nova-core-star">✦</div></div>
+<div class="nova-intro" id="novaIntro" role="dialog" aria-label="Démarrage NovaCore">
+  <div class="intro-space" aria-hidden="true"><div class="intro-nebula"></div><div class="intro-ring intro-ring-a"></div><div class="intro-ring intro-ring-b"></div><div class="intro-supernova"><i></i><i></i><i></i><i></i><i></i><i></i><b>✦</b></div><div class="intro-particles"></div></div>
+  <div class="intro-brand-lockup"><div class="intro-mascot" aria-label="Nova, étoile guide"><span>✦</span><i>⌣</i></div><div class="intro-wordmark">NOVA<span>CORE</span></div><div class="intro-byline">NOVA INDUSTRIES · CREATOR ECOSYSTEM</div><p class="intro-fact" id="introFact">Un nouvel univers est en préparation.</p></div>
+  <div class="intro-progress"><div class="intro-progress-fill"></div></div><p class="intro-loading"><span class="loading-dot"></span> INITIALISATION DE NOVACORE <span id="introPercent">08%</span></p>
+  <button class="intro-skip" id="introSkip" type="button">Passer l’introduction ↗</button>
+</div>
+<div class="access-gate terms-gate" id="termsGate" aria-hidden="true">
+ <section class="gate-card legal-card" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+  <div class="gate-brand"><div class="gate-logo">✦</div><div><b>NOVA INDUSTRIES</b><small>NOVACORE · CONTRAT D’UTILISATION</small></div></div>
+  <span class="eyebrow">AVANT D’ENTRER · VERSION 1.0</span><h2 id="termsTitle">Un univers créatif, un accès responsable.</h2>
+  <p class="gate-lead">Lis ces règles avant d’ouvrir ton espace NovaCore.</p>
+  <div class="terms-scroll">
+   <h3>1. Projet et propriété intellectuelle</h3><p>NovaCore et les éléments fournis avec l’application sont un projet de Nova Industries. Les droits restent à leurs détenteurs respectifs. L’accès à l’application ne donne pas, à lui seul, le droit de copier, redistribuer ou revendiquer le code, les marques ou les créations d’autrui.</p>
+   <h3>2. Usage autorisé</h3><p>Utilise l’application pour créer, apprendre, développer et organiser des projets licites. Tu restes responsable des contenus importés, des droits sur tes ressources et de l’usage que tu fais des exports.</p>
+   <h3>3. Compte et sécurité</h3><p>Garde tes identifiants privés. La vérification de l’adresse e-mail est facultative pour l’usage courant ; elle est requise pour débloquer Nova Engine, NovaOS, Nova Series, Nova IA et RetroEdge. N’expose pas le serveur sur Internet sans configuration, durcissement et hébergement adaptés.</p>
+   <h3>4. Stockage et services externes</h3><p>Une partie des données peut être conservée localement et une autre synchronisée lorsque tu utilises NovaCloud. Les fonctions IA peuvent envoyer les messages à l’endpoint que tu as configuré. N’y saisis pas de secret ou de donnée sensible sans vérifier le fournisseur.</p>
+   <h3>5. État du logiciel</h3><p>NovaCore est en développement. Certaines fonctions sont des prototypes ou des outils de planification, et ne doivent pas être considérées comme un service professionnel garanti, un moteur de rendu final ou un conseil juridique.</p>
+   <h3>6. Acceptation</h3><p>En continuant, tu confirmes avoir lu ces règles et accepter leur version affichée. Cette notice d’application ne remplace pas des conditions juridiques adaptées à un lancement commercial.</p>
+  </div>
+  <label class="terms-consent"><input id="termsConsent" type="checkbox"><span>J’ai lu et j’accepte le contrat d’utilisation de NovaCore.</span></label>
+  <p class="gate-error" id="termsError" aria-live="polite"></p><button class="primary full-width" id="acceptTerms" disabled>Accepter et continuer ↗</button>
+  <small class="gate-footnote">Version 1.0 · L’acceptation est enregistrée lors de la création du compte et de la connexion.</small>
+ </section>
+</div>
+<div class="access-gate auth-gate" id="authGate" aria-hidden="true">
+ <section class="gate-card auth-card" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
+  <div class="auth-visual"><div class="auth-orbit auth-orbit-one"></div><div class="auth-orbit auth-orbit-two"></div><div class="auth-logo">✦</div><span>NOVAID / SECURE IDENTITY</span><h2>Ton univers commence ici.</h2><p>Connecte-toi pour accéder aux espaces, aux outils de production et au moteur.</p><div class="auth-security-points"><span>✓ Accès personnel</span><span>✓ Vérification facultative</span><span>✓ Session sécurisée</span></div></div>
+  <div class="auth-form-side"><div class="gate-brand compact-brand"><div class="gate-logo">✦</div><div><b>NOVACORE</b><small>PAR NOVA INDUSTRIES</small></div></div>
+   <span class="eyebrow">NOVAID · COMPTE SÉCURISÉ</span><h2 id="authGateTitle">Bienvenue.</h2><p class="gate-lead" id="authGateSubtitle">Connecte-toi pour continuer.</p>
+   <nav class="auth-navigation" aria-label="Navigation NovaID">
+    <button type="button" class="auth-nav-item active" data-auth-section="account">Compte</button>
+    <button type="button" class="auth-nav-item" data-auth-section="verification">Vérification</button>
+    <button type="button" class="auth-nav-item" data-auth-section="help">Aide</button>
+   </nav>
+   <div class="auth-tabs" aria-label="Type d’accès"><button class="auth-tab active" id="authModeLogin" type="button">Connexion</button><button class="auth-tab" id="authModeRegister" type="button">Créer un compte</button></div>
+   <div class="field" id="displayNameField" hidden><label for="gateDisplayName">Nom affiché</label><input id="gateDisplayName" autocomplete="name" maxlength="50" placeholder="Ton nom"></div>
+   <div class="field"><label for="gateEmail">Adresse e-mail</label><input id="gateEmail" type="email" autocomplete="email" maxlength="254" placeholder="toi@exemple.fr" required></div>
+   <div class="field"><label for="gatePassword">Mot de passe</label><input id="gatePassword" type="password" autocomplete="current-password" minlength="10" maxlength="128" placeholder="10 caractères minimum" required></div>
+   <p class="gate-error" id="authGateError" aria-live="polite"></p><div class="verify-link-box" id="verificationResult" hidden></div>
+   <button class="primary full-width" id="authGateSubmit" type="button">Se connecter ↗</button>
+   <button class="text-button" id="resendVerification" type="button">Renvoyer un lien de vérification</button>
+   <small class="gate-footnote">La vérification e-mail est facultative : tu peux utiliser projets, tâches, notes, calendrier et Nova Focus sans confirmer ton adresse. Elle est requise pour Nova Engine, NovaOS, Nova Series, Nova IA et RetroEdge. Un vrai envoi d’e-mail nécessite la configuration SMTP.</small>
+  </div>
+ </section>
+</div>
+<aside class="sidebar">
+  <div class="brand"><div class="logo nova-logo-mark">✦</div><div><b>Nova Industries</b><small>ECOSYSTEM · NOVACORE</small></div></div>
+  <div class="workspace"><span class="status-dot"></span><span id="workspaceLabel">Espace local</span><span class="chevron">⌄</span></div>
+  <div class="nav-label">WORKSPACE</div>
+  <button class="nav retroedge-nav retroedge-nav-primary" data-page="retroedge"><span class="retroedge-nav-mark">RE</span> <span>RetroEdge</span><i class="tag">2027</i></button>
+  <button class="nav active" data-page="overview">◈ <span>NovaOS · Centre de contrôle</span></button>
+  <button class="nav" data-page="projects">▦ <span>Projets</span></button>
+  <button class="nav" data-page="tasks">✓ <span>Tâches</span></button>
+  <button class="nav" data-page="notes">▤ <span>Notes</span></button>
+  <button class="nav" data-page="calendar">▦ <span>Calendrier</span></button>
+  <button class="nav" data-page="focus">◷ <span>Nova Focus</span></button>
+  <button class="nav" data-page="knowledge">⌕ <span>Knowledge Base</span></button>
+  <button class="nav" data-page="studio">⌘ <span>Code Studio</span></button>
+  <button class="nav" data-page="novaengine"><span class="nav-novai-mark">N</span> <span>Nova Engine</span><i class="tag">3D</i></button>
+  <button class="nav" data-page="novaseries"><span class="nav-novai-mark">✧</span> <span>NovaSeries Studio</span><i class="tag">FILM</i></button>
+  <button class="nav" data-page="roadmap">◇ <span>Roadmap & Releases</span></button>
+  <button class="nav" data-page="search">⌕ <span>Recherche globale</span></button>
+  <div class="nav-label">ÉCOSYSTÈME</div>
+  <button class="nav" data-page="ai"><span class="nav-novai-mark">N</span> <span>NOVAI</span><i class="tag">AI</i></button>
+  <button class="nav" data-page="learnlab">🧬 <span>Learn Lab Studio</span><i class="tag">LAB</i></button>
+  <button class="nav" data-page="cloud">☁ <span>NovaCloud Sync</span></button>
+  <button class="nav" data-page="plugins">⊞ <span>NovaPlugins</span></button>
+  <button class="nav" data-page="novastore"><span class="nav-novai-mark">◇</span> <span>NovaStore</span><i class="tag">BETA</i></button>
+  <button class="nav" data-page="api">⌁ <span>API Explorer</span><i class="tag">API</i></button>
+  <button class="nav" data-page="automation">⟳ <span>Automations</span></button>
+  <button class="nav" data-page="analytics">▥ <span>Analytics</span></button>
+  <button class="nav" data-page="system">◉ <span>Centre système</span></button>
+  <button class="nav developer-nav" data-page="developer"><span class="developer-icon">⌘</span> <span>Mode développeur</span><i class="tag">DEV</i></button>
+  <button class="nav" data-page="featurelab">✧ <span>Nova Feature Lab</span><i class="tag">100%</i></button>
+  <button class="nav" data-page="anim3d">◇ <span>Studio 3D</span><i class="tag">NEW</i></button>
+  <div class="sidebar-bottom"><div class="mini-card"><div class="mini-icon">✦</div><b>NovaCore Pro</b><p>Votre espace. Votre univers.</p><span class="online"><i></i> Système opérationnel</span></div>
+  <button class="nav" data-page="account">⚙ <span>Compte & sécurité</span></button></div>
+  <div class="user-row"><div class="avatar" id="avatar">G</div><div class="user-text"><b id="userName">Guest User</b><small id="userEmail">Mode invité</small></div><button id="authButton" class="logout" title="Connexion / déconnexion">↗</button></div>
+</aside>
+<div class="sidebar-scrim" id="sidebarScrim" aria-hidden="true"></div>
+<main class="main">
+<header class="topbar"><div class="topbar-heading"><button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰ <span>Menu</span></button><div class="crumb">NovaCore <span>/</span> <b id="crumb">Vue d'ensemble</b></div><h1 id="pageTitle">Vue d'ensemble <span class="spark">✦</span></h1><p id="pageSub">Votre univers numérique, parfaitement orchestré.</p></div></div><div class="top-actions"><div class="sync-pill"><i></i><span id="syncState">Mode local</span></div><button class="icon-btn command-trigger" id="commandBtn" title="Palette de commandes (Ctrl+K)" aria-label="Ouvrir la palette de commandes">⌘</button><button class="icon-btn" id="themeBtn" title="Changer le thème">◐</button><button class="icon-btn" id="languageBtn" title="Changer la langue (FR / EN)" aria-label="Changer la langue">FR</button><button class="primary" id="quickAdd">＋ Nouveau</button></div></header>
+<section id="view" tabindex="-1"></section>
+<footer><span>◈ NOVA INDUSTRIES · NOVACORE <b id="appVersion">3.10.0</b></span><span><i class="status-dot"></i> Tous les systèmes prêts</span></footer>
+</main>
+<div class="toast" id="toast"></div>
+<div class="command-palette" id="commandPalette" role="dialog" aria-modal="true" aria-label="Palette de commandes" hidden>
+  <div class="command-panel">
+    <div class="command-input-row"><span aria-hidden="true">⌕</span><input id="commandInput" type="text" placeholder="Rechercher une page ou une action…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="commandResults" aria-label="Rechercher une commande"><kbd>Esc</kbd></div>
+    <div class="command-results" id="commandResults" role="listbox" aria-label="Commandes disponibles"></div>
+    <div class="command-foot"><span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span><span><kbd>Entrée</kbd> ouvrir</span><span><kbd>Échap</kbd> fermer</span></div>
+  </div>
+</div>
+<div class="nova-tour" id="novaTour" role="dialog" aria-modal="true" aria-labelledby="novaTourTitle" hidden></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="modal-head"><div><small id="modalEyebrow">NOVACORE</small><h2 id="modalTitle">Créer un élément</h2></div><button class="icon-btn" id="modalClose">×</button></div><div id="modalBody"></div></div></div>
+<script src="/boot.js"></script>
+<script src="/feature-lab-model.js"></script>
+<script src="/series-model.js"></script>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+<script src="/nova-commands.js"></script>
+<script src="/nova-tour.js"></script>
+<script src="/motion.js"></script>
+<script src="/three.min.js"></script>
+<script src="/loading-genesis.js"></script>
+<script src="/nova-space.js"></script>
+<script src="/studio-3d.js"></script>
+<script src="/nova-scene.js"></script>
+<script src="/design-shell.js"></script>
+</body></html>
